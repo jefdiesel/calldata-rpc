@@ -1,0 +1,22 @@
+{
+  "1": [
+    "https://eth.llamarpc.com",
+    "https://eth.drpc.org"
+  ],
+  "11155111": [
+    "https://sepolia.drpc.org",
+    "https://0xrpc.io/sep"
+  ],
+  "8453": [
+    "https://mainnet.base.org",
+    "https://base.drpc.org"
+  ],
+  "42161": [
+    "https://arbitrum.drpc.org",
+    "https://public-arb-mainnet.fastnode.io"
+  ],
+  "137": [
+    "https://polygon-rpc.com",
+    "https://rpc-mainnet.matic.quiknode.pro"
+  ]
+}

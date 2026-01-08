@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>ETH Price</title>
+<style>
+body{margin:0;padding:20px;font-family:system-ui;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
+h1{font-size:1.5em;margin-bottom:10px}
+#price{font-size:4em;font-weight:bold;color:#C3FF00;font-family:monospace;margin:20px 0}
+#label{color:#aaa;font-size:0.9em}
+#loading{color:#888}
+</style>
+</head>
+<body>
+<h1>Ethereum Price</h1>
+<div id=loading>Fetching price...</div>
+<div id=label style=display:none>ETH / USD</div>
+<div id=price style=display:none></div>
+<script>
+(function(C){const E='rpcs.calldata.eth';let R=[],L=0;async function load(){if(L)return R;const s=String(C);try{let r=await fetch('https://'+E+'.limo');if(r.ok){let d=await r.json();if(d[s]&&Array.isArray(d[s])){R=d[s];L=1;return R;}}}catch{}try{let r=await fetch('https://'+E+'.link');if(r.ok){let d=await r.json();if(d[s]&&Array.isArray(d[s])){R=d[s];L=1;return R;}}}catch{}return R;}async function call(m,p){if(!L)await load();for(let r of R){try{let x=await fetch(r,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:m,params:p})});if(x.ok){let d=await x.json();if(!d.error)return d.result;}}catch{}}return null;}window.RPC={endpoints:load,call:call};})(1);
+(async function(){
+  const ORACLE='0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419';
+  const SELECTOR='0x50d25bcd';
+  const priceEl=document.getElementById('price');
+  const loading=document.getElementById('loading');
+  const label=document.getElementById('label');
+  
+  async function fetchPrice(){
+    try{
+      const result=await RPC.call('eth_call',[{to:ORACLE,data:SELECTOR},'latest']);
+      
+      if(result&&result.length>=66){
+        const answer=BigInt(result);
+        const price=Number(answer)/1e8;
+        
+        priceEl.textContent='$'+price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+        loading.style.display='none';
+        label.style.display='block';
+        priceEl.style.display='block';
+      }else{
+        loading.textContent='Failed to fetch price';
+      }
+    }catch(e){
+      loading.textContent='Error fetching price';
+    }
+  }
+  
+  await fetchPrice();
+  setInterval(fetchPrice,30000);
+})();
+</script>
+</body>
+</html>
