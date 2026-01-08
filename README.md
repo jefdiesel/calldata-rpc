@@ -1,8 +1,8 @@
-# RPCs Configuration - Usage Guide
+# Onchain RPCs Configuration - Usage Guide
 
 ## Overview
 
-**Purpose**: The RPCs configuration provides a decentralized, chain-agnostic solution for HTML inscriptions and client-side applications to dynamically fetch reliable RPC endpoints for Ethereum-compatible networks. Instead of hardcoding RPC URLs (which can break, become rate-limited, or require updates), your inscriptions can automatically discover and use the best available RPC endpoints for any supported chain.
+**Purpose**: The onchain RPCs configuration provides a decentralized, chain-agnostic solution for HTML inscriptions and client-side applications to dynamically fetch reliable RPC endpoints for Ethereum-compatible networks. Instead of hardcoding RPC URLs (which can break, become rate-limited, or require updates), your inscriptions can automatically discover and use the best available RPC endpoints for any supported chain.
 
 **How It Works**: The `rpcs.json` file is hosted on IPFS and accessible via ENS through `rpcs.calldata.eth`. This means the configuration is:
 - **Decentralized**: No single point of failure - hosted on IPFS
@@ -13,7 +13,7 @@
 
 ## Endpoint
 
-The RPCs configuration is available at:
+The onchain RPCs configuration is available at:
 - **Primary**: `https://rpcs.calldata.eth.limo`
 - **Fallback**: `https://rpcs.calldata.eth.link`
 
