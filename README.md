@@ -4,6 +4,19 @@ Free JSON-RPC proxies for EVM chains, powered by [ChainHost](https://chainhost.o
 
 No API keys. No IPFS. No ENS gateways. Just POST your JSON-RPC request.
 
+## How It Works
+
+Each RPC proxy is a ChainHost subdomain backed by a Cloudflare Worker. The subdomain names (`mainnetrpc`, `137polygon`, `8453base`, `42161`, `11155111`) are Ethscriptions — on-chain names claimed on Ethereum mainnet. The name itself is the identity, inscribed as `data:,mainnetrpc` (etc.) on-chain, and the owner controls the RPC proxy through ChainHost's worker infrastructure.
+
+When you POST a JSON-RPC request:
+
+1. The CF Worker receives it at the edge (global, fast)
+2. Proxies to the first backend RPC endpoint
+3. If it fails, automatically tries the next endpoint
+4. Returns the result with CORS headers
+
+No client-side failover logic needed. The worker handles it.
+
 ## Endpoints
 
 | Chain | Endpoint | Chain ID |
@@ -72,20 +85,7 @@ GET https://mainnetrpc.chainhost.online/endpoints
 → ["https://eth.llamarpc.com", "https://eth.drpc.org"]
 ```
 
-## How It Works
-
-Each RPC proxy is a [ChainHost](https://chainhost.online) subdomain backed by a Cloudflare Worker. The subdomain names (`mainnetrpc`, `137polygon`, `8453base`, `42161`, `11155111`) are Ethscriptions — on-chain names claimed on Ethereum.
-
-When you POST a JSON-RPC request:
-
-1. The CF Worker receives it at the edge (global, fast)
-2. Proxies to the first backend RPC endpoint
-3. If it fails, automatically tries the next endpoint
-4. Returns the result with CORS headers
-
-No client-side failover logic needed. The worker handles it.
-
-### vs. IPFS + ENS approach
+## vs. IPFS + ENS Approach
 
 | | ChainHost RPC | IPFS/ENS RPCs |
 |---|---|---|
@@ -95,9 +95,9 @@ No client-side failover logic needed. The worker handles it.
 | Update endpoints | Edit worker config, deploy | Re-pin IPFS, update ENS record |
 | Dependencies | Cloudflare Worker | IPFS gateway + ENS gateway |
 | Gateway risk | CF edge network | `.limo` / `.link` gateways can go down |
-| Identity | Ethscription names | ENS name |
+| Identity | Ethscription names on mainnet | ENS name |
 
-## Currently Supported Chains
+## Backend RPC Endpoints
 
 | Chain ID | Network | Backend RPCs |
 |----------|---------|-------------|
