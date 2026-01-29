@@ -1,0 +1,47 @@
+{
+  "1": {
+    "name": "Ethereum Mainnet",
+    "subdomain": "mainnetrpc",
+    "endpoint": "https://mainnetrpc.chainhost.online",
+    "rpcs": [
+      "https://eth.llamarpc.com",
+      "https://eth.drpc.org"
+    ]
+  },
+  "137": {
+    "name": "Polygon",
+    "subdomain": "137polygon",
+    "endpoint": "https://137polygon.chainhost.online",
+    "rpcs": [
+      "https://polygon-rpc.com",
+      "https://rpc-mainnet.matic.quiknode.pro"
+    ]
+  },
+  "8453": {
+    "name": "Base",
+    "subdomain": "8453base",
+    "endpoint": "https://8453base.chainhost.online",
+    "rpcs": [
+      "https://mainnet.base.org",
+      "https://base.drpc.org"
+    ]
+  },
+  "42161": {
+    "name": "Arbitrum One",
+    "subdomain": "42161",
+    "endpoint": "https://42161.chainhost.online",
+    "rpcs": [
+      "https://arbitrum.drpc.org",
+      "https://public-arb-mainnet.fastnode.io"
+    ]
+  },
+  "11155111": {
+    "name": "Sepolia",
+    "subdomain": "11155111",
+    "endpoint": "https://11155111.chainhost.online",
+    "rpcs": [
+      "https://sepolia.drpc.org",
+      "https://0xrpc.io/sep"
+    ]
+  }
+}
